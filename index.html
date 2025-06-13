@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body{
+            background: linear-gradient(135deg, #c3cfe2, #f5f7fa);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .board{
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+            padding: 50px;
+            border-radius: 20px;
+            
+        }
+        .column{
+            width: 300px;
+            min-height: 400px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            /* box-shadow: rgba(0, 0, 0, 0.5); */
+            border: 2px dashed #ccc;
+        }
+        .column h3{
+            text-align: center;
+            margin-bottom: 20px;
+
+        }
+        .task{
+            padding: 15px 20px;
+            background-color: #6c5ce7;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            color: #fff;
+            cursor:grab;
+            transition: transform 0.2s ease;
+            
+        }
+        .task:hover{
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+    <div class="board">
+        <div class="column" id ="todo">
+            <h3>To Do</h3>
+            <div class="task">Update Docs</div>
+            <div class="task">Design UI</div>
+            <div class="task">Fix Bugs</div>
+            <div class="task">Write Reports</div>
+        </div>
+
+        <div class="column" id ="inprogress">
+            <h3>In Progress</h3>
+        </div>
+    </div>
+
+    <script>
+        var tasks = document.querySelector(".task");
+        var columns = document.querySelector(".column");
+        var draggedTask = null;
+
+        for(var i = 0; i < tasks.length; i++){
+            tasks[i].addEventListener("dragstart", function(){
+                draggedTask = this;
+                setTimeOut(function(){
+                    task.style.display = "none";
+                },0);
+            });
+            task[i].addEventListener("dragend", function(){
+                var task = this;
+                setTimeOut(function(){
+                    task.style.display = "block";
+                    draggedTask = null;
+                },0);
+            })
+        }
+
+        for(var j = 0; j < columns.length; j++){
+            columns[j].addEventListener("dropover", function(e){
+                e.preventDefault();
+            });
+            columns[j].addEventListener("drop", function(){
+                if(draggedTask){
+                    this.appendChild(draggedTask);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
