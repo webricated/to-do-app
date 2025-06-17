@@ -90,10 +90,26 @@
             for (var j = 0; j < columns.length; j++) {
                 columns[j].addEventListener("dragover", function (e) {
                     e.preventDefault()
+                    // console.log(e)
                 })
-                columns[j].addEventListener("drop", function () {
-                    if (draggedTask) {
+                columns[j].addEventListener("drop", function (e) {
+                    // if (draggedTask) {
+                    //     this.appendChild(draggedTask)
+                    // }
+                    elementDropPoint = document.elementFromPoint(
+                        event.clientX,
+                        event.clientY
+                    )
+                    console.log(elementDropPoint)
+                    if (elementDropPoint.className == "column") {
                         this.appendChild(draggedTask)
+                    }
+                    if (elementDropPoint.className == "task") {
+                        if (elementDropPoint == this.children[1]) {
+                            this.insertBefore(draggedTask, this.children[1])
+                        } else {
+                            elementDropPoint.after(draggedTask)
+                        }
                     }
                 })
             }
